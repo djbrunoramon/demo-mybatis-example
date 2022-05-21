@@ -9,15 +9,28 @@
             resultMap="articleResultMap">
         SELECT id,
                title,
-               author
+               id_author
         FROM ARTICLES
         WHERE id = #{id}
     </select>
 
     <resultMap id="articleResultMap"
                type="com.example.demomybatisexample.beans.Article">
-        <result property="id" column="id"></result>
-        <result property="title" column="title"></result>
-        <result property="author" column="author"></result>
+        <result property="id" column="id"/>
+        <result property="title" column="title"/>
+
+        <association property="hasAuthor" column="id_author" select="selectIfHasAuthor" />
+
+        <association property="author" column="id_author"
+                     select="com.example.demomybatisexample.mapper.AuthorMapper.getAuthor"/>
     </resultMap>
+
+    <select id="selectIfHasAuthor" parameterType="map" resultType="boolean">
+        SELECT
+            EXISTS(
+                    SELECT 1
+                    FROM AUTHOR
+                    WHERE id = #{id}
+                )
+    </select>
 </mapper>

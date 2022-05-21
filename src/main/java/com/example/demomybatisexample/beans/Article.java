@@ -4,16 +4,16 @@ public class Article {
 
     private Long id;
     private String title;
-    private String author;
+    private Author author;
 
+    private boolean hasAuthor;
 
-    public Article() {
+    public boolean isHasAuthor() {
+        return hasAuthor;
     }
 
-    public Article(Long id, String title, String author) {
-        this.id = id;
-        this.title = title;
-        this.author = author;
+    public void setHasAuthor(boolean hasAuthor) {
+        this.hasAuthor = hasAuthor;
     }
 
     public Long getId() {
@@ -32,11 +32,11 @@ public class Article {
         this.title = title;
     }
 
-    public String getAuthor() {
+    public Author getAuthor() {
         return author;
     }
 
-    public void setAuthor(String author) {
+    public void setAuthor(Author author) {
         this.author = author;
     }
 }
