@@ -16,12 +16,28 @@ class DemoMybatisExampleApplicationTests {
 
     @Test
     void whenRecordsInDatabase_shouldReturnArticleWithGivenId() {
-        Article article = articleMapper.getArticle(1L);
+        Long idArticle = 1L;
+
+        Article article = articleMapper.getArticle(idArticle);
 
         assertThat(article).isNotNull();
-        assertThat(article.getId()).isEqualTo(1L);
-        assertThat(article.getAuthor()).isEqualTo("Bruno Ramon");
+        assertThat(article.getId()).isEqualTo(idArticle);
         assertThat(article.getTitle()).isEqualTo("Working with MyBatis in Spring");
+        assertThat(article.getAuthor().getFirstName()).isEqualTo("Bruno");
+        assertThat(article.getAuthor().getLastName()).isEqualTo("Ramon");
+        assertThat(article.isHasAuthor()).isTrue();
     }
 
+    @Test
+    void whenRecordsInDatabase_shouldReturnArticleWithoutAuthor() {
+        Long idArticle = 2L;
+
+        Article article = articleMapper.getArticle(idArticle);
+
+        assertThat(article).isNotNull();
+        assertThat(article.getId()).isEqualTo(idArticle);
+        assertThat(article.getTitle()).isEqualTo("Working with MyBatis in Spring Vol. 2");
+        assertThat(article.getAuthor()).isNull();
+        assertThat(article.isHasAuthor()).isFalse();
+    }
 }
