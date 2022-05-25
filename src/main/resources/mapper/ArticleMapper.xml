@@ -21,8 +21,11 @@
 
         <association property="hasAuthor" column="id_author" select="selectIfHasAuthor" />
 
-        <association property="author" column="id_author"
-                     select="com.example.demomybatisexample.mapper.AuthorMapper.getAuthor"/>
+<!--        Outra forma de associar um tabela com outra-->
+<!--        <association property="author" column="id_author"-->
+<!--                     select="com.example.demomybatisexample.mapper.AuthorMapper.getAuthor"/>-->
+
+        <collection property="author" select="com.example.demomybatisexample.mapper.AuthorMapper.getAuthor" column="id_author"/>
     </resultMap>
 
     <select id="selectIfHasAuthor" parameterType="map" resultType="boolean">
