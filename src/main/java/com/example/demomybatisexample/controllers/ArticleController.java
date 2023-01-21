@@ -10,16 +10,24 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.demomybatisexample.beans.Article;
 import com.example.demomybatisexample.services.ArticleService;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/v1/article")
 public class ArticleController {
-	
-	@Autowired
-	private ArticleService articleService;
-	
-	@GetMapping("/{id}")
-	public ResponseEntity<Article> getArticleById(@PathVariable Long id) {
-		return ResponseEntity.ok(articleService.getArticleById(id));
-	}
+
+    @Autowired
+    private ArticleService articleService;
+
+    @GetMapping
+    public ResponseEntity<List<Article>> getAllArticle() {
+        List<Article> articles = articleService.getAllArticles();
+        return ResponseEntity.ok(articles);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Article> getArticleById(@PathVariable Long id) {
+        return ResponseEntity.ok(articleService.getArticleById(id));
+    }
 
 }

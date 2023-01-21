@@ -6,6 +6,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.List;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
@@ -17,7 +19,6 @@ class DemoMybatisExampleApplicationTests {
     @Test
     void whenRecordsInDatabase_shouldReturnArticleWithGivenId() {
         Long idArticle = 1L;
-
         Article article = articleMapper.getArticle(idArticle);
 
         assertThat(article).isNotNull();
@@ -31,7 +32,6 @@ class DemoMybatisExampleApplicationTests {
     @Test
     void whenRecordsInDatabase_shouldReturnArticleWithoutAuthor() {
         Long idArticle = 2L;
-
         Article article = articleMapper.getArticle(idArticle);
 
         assertThat(article).isNotNull();
@@ -39,5 +39,15 @@ class DemoMybatisExampleApplicationTests {
         assertThat(article.getTitle()).isEqualTo("Working with MyBatis in Spring Vol. 2");
         assertThat(article.getAuthor()).isNull();
         assertThat(article.isHasAuthor()).isFalse();
+    }
+
+    @Test
+    void whenRecordsInDatabase_shouldReturnAListOfArticle() {
+        List<Article> articles = articleMapper.findAll();
+
+        assertThat(articles)
+                .hasSize(2)
+                .anyMatch(article -> article.getTitle().equals("Working with MyBatis in Spring"))
+                .anyMatch(article -> article.getTitle().equals("Working with MyBatis in Spring Vol. 2"));
     }
 }

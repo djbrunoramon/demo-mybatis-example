@@ -5,7 +5,6 @@ public class Article {
     private Long id;
     private String title;
     private Author author;
-
     private boolean hasAuthor;
 
     public boolean isHasAuthor() {
